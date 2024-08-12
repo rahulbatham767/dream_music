@@ -29,7 +29,14 @@ const Player = ({ data }) => {
       };
     }
   }, [data]);
-
+  useEffect(() => {
+    // Automatically play the audio when the data changes
+    const audio = audioRef.current;
+    if (audio && data) {
+      audio.play().catch((error) => console.error("Playback error:", error));
+      setIsPlaying(true);
+    }
+  }, [data]);
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
